@@ -48,6 +48,15 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('count')->isRequired()->end()
                     ->end()
                 ->end()
+                ->scalarNode('logger')
+                    ->defaultValue(null)
+                ->end()
+                ->scalarNode('cache_pool')
+                    ->defaultValue(null)
+                ->end()
+                ->scalarNode('cache_ttl')
+                    ->defaultValue(null)
+                ->end()
             ->end()
         ;
 
