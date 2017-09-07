@@ -2,7 +2,7 @@
 
 namespace MovingImage\Bundle\VMProApiBundle;
 
-use MovingImage\Bundle\VMProApiBundle\DependencyInjection\CompilerPass;
+use MovingImage\Bundle\VMProApiBundle\DependencyInjection\Compiler\CachePoolPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -19,6 +19,6 @@ class VMProApiBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        $container->addCompilerPass(new CompilerPass());
+        $container->addCompilerPass(new CachePoolPass());
     }
 }
