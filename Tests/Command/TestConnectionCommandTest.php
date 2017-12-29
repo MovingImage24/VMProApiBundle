@@ -31,7 +31,7 @@ class TestConnectionCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        if ($success === true) {
+        if (true === $success) {
             $client
                 ->expects($this->once())
                 ->method('getChannels')
