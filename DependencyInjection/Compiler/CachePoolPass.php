@@ -15,9 +15,13 @@ class CachePoolPass implements CompilerPassInterface
     {
         $clientDefinition = $container->getDefinition('vmpro_api.client');
 
-        $clientDefinition->setArgument(2, $this->getServiceReference($container, 'vm_pro_api_logger'));
-        $clientDefinition->setArgument(3, $this->getServiceReference($container, 'vm_pro_api_cache_pool'));
-        $clientDefinition->setArgument(4, $container->getParameter('vm_pro_api_cache_ttl'));
+        $arguments = $clientDefinition->getArguments();
+
+        $arguments[2] = $this->getServiceReference($container, 'vm_pro_api_logger');
+        $arguments[3] = $this->getServiceReference($container, 'vm_pro_api_cache_pool');
+        $arguments[4] = $container->getParameter('vm_pro_api_cache_ttl');
+
+        $clientDefinition->setArguments($arguments);
     }
 
     /**
