@@ -2,7 +2,7 @@ services:
     vmpro_api.ratings:
         class: MovingImage\Client\VMPro\Services\Ratings
         arguments:
-            - "@vmpro_api.client"
+            - "@vmpro_api.client_uncached"
             - %vm_pro_api_default_vm_id%
             - %vm_pro_api_rating_meta_data_fields_average%
             - %vm_pro_api_rating_meta_data_fields_count%
