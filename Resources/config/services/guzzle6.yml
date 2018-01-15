@@ -26,7 +26,16 @@ services:
 
     # Video Manager Pro API client - dynamically instantiated
     # depending on which GuzzleHttp library is present in the project
+    # May be cached if correctly configured (vm_pro_api.cache_pool and vm_pro_api.cache_ttl must be defined)
     vmpro_api.client:
+        class: MovingImage\Client\VMPro\ApiClient
+        factory: ["@vmpro_api.api_client_factory", create]
+        arguments:
+            - "@vmpro_api.authenticated_guzzle_client"
+            - "@vmpro_api.serializer"
+
+    # Video Manager Pro API client - shall be always uncached
+    vmpro_api.client_uncached:
         class: MovingImage\Client\VMPro\ApiClient
         factory: ["@vmpro_api.api_client_factory", create]
         arguments:
