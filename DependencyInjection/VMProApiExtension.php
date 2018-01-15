@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Class VMProApiExtension.
@@ -80,6 +81,10 @@ class VMProApiExtension extends ConfigurableExtension
             $loader->load('services/guzzle6.yml');
         } else {
             $loader->load('services/guzzle5.yml');
+        }
+
+        if (version_compare(Kernel::VERSION, '3.3', '>=')) {
+            $loader->load('services/symfony3.yml');
         }
     }
 }
