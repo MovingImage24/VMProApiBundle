@@ -1,0 +1,11 @@
+# this file should only be loaded if symfony version 3.3 or higher is used
+
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # alias for the default api client (cached)
+    MovingImage\Client\VMPro\Interfaces\ApiClientInterface: '@vmpro_api.client'
