@@ -18,6 +18,11 @@ class Configuration implements ConfigurationInterface
     const DEFAULT_API_BASE_URL = 'https://api.video-cdn.net/v1/vms/';
 
     /**
+     * @const Default OAuth URL (used for fetching and refreshing access token)
+     */
+    const DEFAULT_OAUTH_URL = 'https://login.movingimage.com/auth/realms/platform/protocol/openid-connect/token';
+
+    /**
      * Build the configuration structure for this bundle.
      *
      * @return TreeBuilder
@@ -31,6 +36,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('base_url')
                     ->defaultValue(self::DEFAULT_API_BASE_URL)
+                ->end()
+                ->scalarNode('oauth_url')
+                    ->defaultValue(self::DEFAULT_OAUTH_URL)
                 ->end()
                 ->scalarNode('default_vm_id')
                     ->defaultValue(0)
