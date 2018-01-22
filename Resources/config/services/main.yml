@@ -20,7 +20,7 @@ services:
     vmpro_api.token_manager:
         class: MovingImage\Client\VMPro\Manager\TokenManager
         arguments:
-            - "@vmpro_api.unauthenticated_guzzle_client"
+            - "@vmpro_api.oauth_guzzle_client"
             - "@vmpro_api.credentials"
             - "@vmpro_api.token_extractor"
 
