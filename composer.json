@@ -2,7 +2,7 @@
     "name": "movingimage/vmpro-api-bundle",
     "description": "Official Symfony bundle for interacting with the MovingIMAGE Video Manager Pro public API",
     "type": "bundle",
-    "license": "BSD 3-Clause License",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Ruben Knol",
