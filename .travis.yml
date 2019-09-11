@@ -17,9 +17,9 @@ matrix:
     - php: 7.0
 
 install:
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}"; fi;
   - export COMPOSER_MEMORY_LIMIT=-1
   - export COMPOSER_PROCESS_TIMEOUT=3000
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}"; fi;
   - composer install
   - if [ "$GUZZLE_VERSION" != "" ]; then composer require "guzzlehttp/guzzle:${GUZZLE_VERSION}"; fi;
   - if [ "$GUZZLE_VERSION" != "" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;
