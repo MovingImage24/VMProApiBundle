@@ -12,12 +12,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^5.5 || ^7.0",
-        "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
+        "php": "^7.2",
+        "symfony/framework-bundle": "^4.0",
         "guzzlehttp/guzzle": "^5.0 || ^6.0",
         "movingimage/vmpro-api-client": "dev-master",
         "psr/cache": "^1.0",
-        "symfony/stopwatch": "^2.7 || ^3.0 || ^4.0"
+        "symfony/stopwatch": "^4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.9",

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests\EventListener;
 
 use GuzzleHttp\ClientInterface;
-use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use MovingImage\Bundle\VMProApiBundle\EventListener\BypassCacheListener;
 use MovingImage\Client\VMPro\ApiClient;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +19,16 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class BypassCacheListenerTest extends TestCase
 {
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    public function setUp()
+    {
+        $this->serializer = SerializerBuilder::create()->build();
+    }
+
     /**
      * Tests onKernelRequest method.
      *
@@ -57,9 +70,8 @@ class BypassCacheListenerTest extends TestCase
     private function getApiClient()
     {
         $client = $this->createMock(ClientInterface::class);
-        $serializer = $this->createMock(Serializer::class);
 
-        return new ApiClient($client, $serializer, new ArrayAdapter());
+        return new ApiClient($client, $this->serializer, new ArrayAdapter());
     }
 
     /**
