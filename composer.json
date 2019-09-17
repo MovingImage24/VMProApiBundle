@@ -9,13 +9,12 @@
             "email": "ruben.knol@movingimage.com"
         }
     ],
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": "^7.2",
         "symfony/framework-bundle": "^4.0",
         "guzzlehttp/guzzle": "^5.0 || ^6.0",
-        "movingimage/vmpro-api-client": "dev-master",
+        "movingimage/vmpro-api-client": "^3.0",
         "psr/cache": "^1.0",
         "symfony/stopwatch": "^4.0"
     },
