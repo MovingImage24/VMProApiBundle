@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Decorator;
 
 use Psr\Cache\CacheItemInterface;
@@ -18,9 +20,6 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
      */
     private $cacheItem;
 
-    /**
-     * @param CacheItemInterface $cacheItem
-     */
     public function __construct(CacheItemInterface $cacheItem)
     {
         $this->cacheItem = $cacheItem;
@@ -29,7 +28,7 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->cacheItem->getKey();
     }
@@ -45,7 +44,7 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function isHit()
+    public function isHit(): bool
     {
         return false;
     }
@@ -53,7 +52,7 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set($value)
+    public function set($value): CacheItemInterface
     {
         return $this->cacheItem->set($value);
     }
@@ -61,7 +60,7 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration): CacheItemInterface
     {
         return $this->cacheItem->expiresAt($expiration);
     }
@@ -69,17 +68,15 @@ class BlackholeCacheItemDecorator implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time): CacheItemInterface
     {
         return $this->cacheItem->expiresAfter($time);
     }
 
     /**
      * Returns the decorated CacheItemInterface implementation.
-     *
-     * @return CacheItemInterface
      */
-    public function getDecoratedItem()
+    public function getDecoratedItem(): CacheItemInterface
     {
         return $this->cacheItem;
     }

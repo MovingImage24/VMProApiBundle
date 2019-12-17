@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\EventListener;
 
 use MovingImage\Bundle\VMProApiBundle\Service\Stopwatch;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Sets the headers with durations of each API request, as well as the total time for all requests.
@@ -24,19 +26,15 @@ class StopwatchListener implements EventSubscriberInterface
     private $enabled;
 
     /**
-     * @param Stopwatch $stopwatch
-     * @param bool      $enabled   (if false, this listener will be effectively bypassed)
+     * @param bool $enabled (if false, this listener will be effectively bypassed)
      */
-    public function __construct(Stopwatch $stopwatch, $enabled)
+    public function __construct(Stopwatch $stopwatch, bool $enabled)
     {
         $this->stopwatch = $stopwatch;
         $this->enabled = $enabled;
     }
 
-    /**
-     * @param FilterResponseEvent $event
-     */
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
         if (!$this->enabled) {
             return;
@@ -53,10 +51,7 @@ class StopwatchListener implements EventSubscriberInterface
         $this->setHeader($event->getResponse(), 'total', $totalDuration);
     }
 
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::RESPONSE => 'onKernelResponse',
@@ -65,15 +60,11 @@ class StopwatchListener implements EventSubscriberInterface
 
     /**
      * Sets the header for the specified stage (eg X-API-RESPONSE-GET-VIDEOS).
-     *
-     * @param Response $response
-     * @param string   $stage
-     * @param int      $duration
      */
-    private function setHeader(Response $response, $stage, $duration)
+    private function setHeader(Response $response, string $stage, int $duration): void
     {
         // disallow non-alphanumeric characters in the header
-        $stage = preg_replace('/[^\d\w]/', '', $stage);
+        $stage = preg_replace('/[^\w]/', '', $stage);
         $headerName = 'X-API-RESPONSE-'.strtoupper($stage);
         $response->headers->set($headerName, $duration);
     }

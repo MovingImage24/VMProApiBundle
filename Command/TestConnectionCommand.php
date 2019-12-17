@@ -1,19 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class TestConnectionCommand.
- *
- * @author Ruben Knol <ruben.knol@movingimage.com>
- */
 class TestConnectionCommand extends ContainerAwareCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('vmpro-api:test-connection')
@@ -24,11 +21,8 @@ class TestConnectionCommand extends ContainerAwareCommand
     /**
      * Commandline utility to test whether the bundle can successfully
      * connect to the API.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $container = $this->getContainer();
         $client = $container->get('vmpro_api.client');

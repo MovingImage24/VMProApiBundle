@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests\Decorator;
 
 use MovingImage\Bundle\VMProApiBundle\Decorator\BlackholeCacheItemDecorator;
@@ -64,11 +66,9 @@ class BlackholeCacheItemPoolDecoratorTest extends TestCase
      * Returns an implementation of the CacheItemPoolInterface
      * initialized with the values provided in the array.
      *
-     * @param array $values
-     *
-     * @return CacheItemPoolInterface
+     * @throws \Psr\Cache\InvalidArgumentException
      */
-    private function getCachePool(array $values)
+    private function getCachePool(array $values): CacheItemPoolInterface
     {
         $cachePool = new ArrayAdapter();
         foreach ($values as $key => $value) {

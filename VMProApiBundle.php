@@ -7,11 +7,6 @@ use MovingImage\Bundle\VMProApiBundle\DependencyInjection\Compiler\StopwatchPass
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Class VMProApiBundle.
- *
- * @author Ruben Knol <ruben.knol@movingimage.com>
- */
 class VMProApiBundle extends Bundle
 {
     /**

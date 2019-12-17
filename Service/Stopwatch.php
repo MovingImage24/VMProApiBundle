@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Service;
 
 use MovingImage\Client\VMPro\Interfaces\StopwatchInterface;
@@ -21,9 +23,6 @@ class Stopwatch implements StopwatchInterface
      */
     private $events = [];
 
-    /**
-     * @param SymfonyStopwatch $delegate
-     */
     public function __construct(SymfonyStopwatch $delegate)
     {
         $this->delegate = $delegate;
@@ -32,7 +31,7 @@ class Stopwatch implements StopwatchInterface
     /**
      * {@inheritdoc}
      */
-    public function start($name, $category = null)
+    public function start(string $name, ?string $category = null): void
     {
         $this->delegate->start($name, $category);
     }
@@ -40,7 +39,7 @@ class Stopwatch implements StopwatchInterface
     /**
      * {@inheritdoc}
      */
-    public function stop($name)
+    public function stop(string $name): void
     {
         $this->events[$name] = $this->delegate->stop($name);
     }
@@ -48,7 +47,7 @@ class Stopwatch implements StopwatchInterface
     /**
      * @return StopwatchEvent[]
      */
-    public function getEvents()
+    public function getEvents(): array
     {
         return $this->events;
     }

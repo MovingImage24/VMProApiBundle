@@ -1,33 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * Class Configuration.
- *
- * @author Ruben Knol <ruben.knol@movingimage.com>
- */
 class Configuration implements ConfigurationInterface
 {
     /**
      * @const Which API base URL to use by default.
      */
-    const DEFAULT_API_BASE_URL = 'https://api.video-cdn.net/v1/vms/';
+    private const DEFAULT_API_BASE_URL = 'https://api.video-cdn.net/v1/vms/';
 
     /**
      * @const Default OAuth URL (used for fetching and refreshing access token)
      */
-    const DEFAULT_OAUTH_URL = 'https://login.movingimage.com/auth/realms/platform/protocol/openid-connect/token';
+    private const DEFAULT_OAUTH_URL = 'https://login.movingimage.com/auth/realms/platform/protocol/openid-connect/token';
 
     /**
      * Build the configuration structure for this bundle.
-     *
-     * @return TreeBuilder
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('vm_pro_api');

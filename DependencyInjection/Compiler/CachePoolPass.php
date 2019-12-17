@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -11,7 +13,7 @@ class CachePoolPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // inject cache pool to API client
         $clientDefinition = $container->getDefinition('vmpro_api.client');
@@ -38,14 +40,9 @@ class CachePoolPass implements CompilerPassInterface
      *
      * If the specified service does not exist in the container, an exception is thrown.
      *
-     * @param ContainerBuilder $container
-     * @param string           $parameterName
-     *
-     * @return Reference|null
-     *
      * @throws \Exception
      */
-    private function getServiceReference(ContainerBuilder $container, $parameterName)
+    private function getServiceReference(ContainerBuilder $container, string $parameterName): ?Reference
     {
         $serviceId = $container->getParameter($parameterName);
         if (empty($serviceId)) {
@@ -56,10 +53,6 @@ class CachePoolPass implements CompilerPassInterface
             return new Reference($serviceId);
         }
 
-        throw new \Exception(sprintf(
-            'Service "%s" specified in parameter "%s" does not exist',
-            $serviceId,
-            $parameterName
-        ));
+        throw new \Exception(sprintf('Service "%s" specified in parameter "%s" does not exist', $serviceId, $parameterName));
     }
 }

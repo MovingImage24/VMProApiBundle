@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests\EventListener;
 
 use MovingImage\Bundle\VMProApiBundle\EventListener\StopwatchListener;
@@ -15,10 +17,9 @@ use Symfony\Component\Stopwatch\Stopwatch as SymfonyStopwatch;
 class StopwatchListenerTest extends TestCase
 {
     /**
-     * @param bool $enabled
      * @dataProvider dataProviderForTestOnKernelResponse
      */
-    public function testOnKernelResponse($enabled)
+    public function testOnKernelResponse(bool $enabled): void
     {
         $stopwatch = new Stopwatch(new SymfonyStopwatch());
         $stopwatch->start('test');
@@ -39,10 +40,8 @@ class StopwatchListenerTest extends TestCase
 
     /**
      * Data provider for testOnKernelResponse.
-     *
-     * @return array
      */
-    public function dataProviderForTestOnKernelResponse()
+    public function dataProviderForTestOnKernelResponse(): array
     {
         return [
             [true],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Decorator;
 
 use Psr\Cache\CacheItemInterface;
@@ -19,9 +21,6 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
      */
     private $cacheItemPool;
 
-    /**
-     * @param CacheItemPoolInterface $cacheItemPool
-     */
     public function __construct(CacheItemPoolInterface $cacheItemPool)
     {
         $this->cacheItemPool = $cacheItemPool;
@@ -30,7 +29,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function getItem($key)
+    public function getItem($key): CacheItemInterface
     {
         return new BlackholeCacheItemDecorator($this->cacheItemPool->getItem($key));
     }
@@ -38,7 +37,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = [])
     {
         $items = [];
         foreach ($this->cacheItemPool->getItems($keys) as $item) {
@@ -51,7 +50,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function hasItem($key)
+    public function hasItem($key): bool
     {
         return $this->cacheItemPool->hasItem($key);
     }
@@ -59,7 +58,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->cacheItemPool->clear();
     }
@@ -67,7 +66,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         return $this->cacheItemPool->deleteItem($key);
     }
@@ -75,7 +74,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys): bool
     {
         return $this->cacheItemPool->deleteItems($keys);
     }
@@ -83,7 +82,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         if ($item instanceof BlackholeCacheItemDecorator) {
             $item = $item->getDecoratedItem();
@@ -95,7 +94,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         if ($item instanceof BlackholeCacheItemDecorator) {
             $item = $item->getDecoratedItem();
@@ -107,7 +106,7 @@ class BlackholeCacheItemPoolDecorator implements CacheItemPoolInterface
     /**
      * {@inheritdoc}
      */
-    public function commit()
+    public function commit(): bool
     {
         return $this->cacheItemPool->commit();
     }

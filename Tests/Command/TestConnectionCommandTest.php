@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests;
 
 use MovingImage\Bundle\VMProApiBundle\Command\TestConnectionCommand;
 use MovingImage\Client\VMPro\Entity\Channel;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use MovingImage\Client\VMPro\ApiClient;
 
-class TestConnectionCommandTest extends \PHPUnit_Framework_TestCase
+class TestConnectionCommandTest extends TestCase
 {
     private function createCommandTester(ContainerInterface $container, Application $application = null)
     {
@@ -26,17 +30,20 @@ class TestConnectionCommandTest extends \PHPUnit_Framework_TestCase
 
     private function getContainer($success = true)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
-        $client = $this->getMockBuilder('MovingImage\Client\VMPro\ApiClient')
+        $container = $this->getMockBuilder(ContainerInterface::class)->getMock();
+        $client = $this->getMockBuilder(ApiClient::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         if (true === $success) {
+            $channel = (new Channel())
+                ->setName('Test');
+
             $client
                 ->expects($this->once())
                 ->method('getChannels')
                 ->with(5)
-                ->will($this->returnValue(new Channel()));
+                ->willReturn($channel);
         } else {
             $client
                 ->expects($this->once())
@@ -49,13 +56,13 @@ class TestConnectionCommandTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('get')
             ->with('vmpro_api.client')
-            ->will($this->returnValue($client));
+            ->willReturn($client);
 
         $container
             ->expects($this->once())
             ->method('getParameter')
             ->with('vm_pro_api_default_vm_id')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
 
         return $container;
     }
