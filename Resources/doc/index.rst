@@ -7,8 +7,8 @@ Manager Pro into your PHP application built on top of the Symfony framework.
 Prerequisites
 -------------
 
-This version requires version 2.7+ or 3.0+ of the Symfony framework, and supports
-version 5.* and 6.* of the Guzzle HTTP client. (it will use which ever one is
+This version requires 3.4+ of the Symfony framework, and supports
+version 6.* of the Guzzle HTTP client. (it will use which ever one is
 already present in your dependencies, or install the latest available version if
 you don't already have Guzzle as a dependency).
 

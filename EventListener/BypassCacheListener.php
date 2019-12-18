@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\EventListener;
 
 use MovingImage\Bundle\VMProApiBundle\Decorator\BlackholeCacheItemPoolDecorator;
 use MovingImage\Client\VMPro\ApiClient;
 use MovingImage\Client\VMPro\ApiClient\AbstractApiClient;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * This listener kicks in only if the `cache_bypass_argument` bundle config option is set.
@@ -28,20 +30,13 @@ class BypassCacheListener implements EventSubscriberInterface
      */
     private $cacheBypassArgument;
 
-    /**
-     * @param ApiClient $apiClient
-     * @param string    $cacheBypassArgument
-     */
-    public function __construct(ApiClient $apiClient, $cacheBypassArgument = null)
+    public function __construct(ApiClient $apiClient, ?string $cacheBypassArgument = null)
     {
         $this->apiClient = $apiClient;
         $this->cacheBypassArgument = $cacheBypassArgument;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (is_null($this->cacheBypassArgument)) {
             return;
@@ -55,10 +50,7 @@ class BypassCacheListener implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => 'onKernelRequest',

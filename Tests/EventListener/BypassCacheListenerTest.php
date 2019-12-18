@@ -24,7 +24,7 @@ class BypassCacheListenerTest extends TestCase
      */
     private $serializer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->serializer = SerializerBuilder::create()->build();
     }
@@ -33,22 +33,15 @@ class BypassCacheListenerTest extends TestCase
      * Tests onKernelRequest method.
      *
      * @dataProvider dataProvider
-     *
-     * @param string $bypassCacheArgument
-     * @param array  $query
-     * @param array  $request
-     * @param array  $attributes
-     * @param array  $cookies
-     * @param bool   $isHit
      */
     public function testOnKernelRequest(
-        $bypassCacheArgument,
+        ?string $bypassCacheArgument,
         array $query,
         array $request,
         array $attributes,
         array $cookies,
-        $isHit
-    ) {
+        bool $isHit
+    ): void {
         $apiClient = $this->getApiClient();
         $listener = new BypassCacheListener($apiClient, $bypassCacheArgument);
         $request = new Request($query, $request, $attributes, $cookies);
@@ -64,10 +57,8 @@ class BypassCacheListenerTest extends TestCase
     /**
      * Creates an ApiClient instance with mocked dependencies
      * and ArrayAdapter as cache pool.
-     *
-     * @return ApiClient
      */
-    private function getApiClient()
+    private function getApiClient(): ApiClient
     {
         $client = $this->createMock(ClientInterface::class);
 
@@ -78,11 +69,8 @@ class BypassCacheListenerTest extends TestCase
      * Asserts that storing an item to the provided pool followed by immediately
      * fetching it again from the pool will result in the specified "hit" status.
      * ($isHit = true -> expecting a cache hit; $isHit = false -> expecting a cache miss).
-     *
-     * @param $isHit
-     * @param CacheItemPoolInterface $pool
      */
-    private function assertIsHit($isHit, CacheItemPoolInterface $pool)
+    private function assertIsHit(bool $isHit, CacheItemPoolInterface $pool): void
     {
         $item = $pool->getItem('test');
         $item->set('test');
@@ -94,10 +82,8 @@ class BypassCacheListenerTest extends TestCase
      * Data provider for testOnKernelRequest.
      * Provides various combinations of request arguments and configuration,
      * as well as the expected behavior.
-     *
-     * @return array
      */
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             [null, [], [], [], [], true],

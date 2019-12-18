@@ -1,25 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests\DependencyInjection;
 
 use MovingImage\Bundle\VMProApiBundle\DependencyInjection\VMProApiExtension;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * Class VMProApiExtensionTest.
- *
- * @author Ruben Knol <ruben.knol@movingimage.com>
- */
 class VMProApiExtensionTest extends AbstractTestCase
 {
     /**
      * Assert whether an exception is thrown when required configuration
      * key 'vm_pro_api.credentials' is missing.
-     *
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testConfigurationLoadThrowsExceptionUnlessCredentials()
+    public function testConfigurationLoadThrowsExceptionUnlessCredentials(): void
     {
+        $this->expectException(InvalidConfigurationException::class);
         $loader = new VMProApiExtension();
         $config = $this->getEmptyConfig();
 
@@ -30,11 +27,10 @@ class VMProApiExtensionTest extends AbstractTestCase
     /**
      * Assert whether an exception is thrown when required configuration
      * key 'vm_pro_api.credentials.username' is missing.
-     *
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testConfigurationLoadThrowsExceptionUnlessUsername()
+    public function testConfigurationLoadThrowsExceptionUnlessUsername(): void
     {
+        $this->expectException(InvalidConfigurationException::class);
         $loader = new VMProApiExtension();
         $config = $this->getEmptyConfig();
 
@@ -45,11 +41,10 @@ class VMProApiExtensionTest extends AbstractTestCase
     /**
      * Assert whether an exception is thrown when required configuration
      * key 'vm_pro_api.credentials.password' is missing.
-     *
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testConfigurationLoadThrowsExceptionUnlessPassword()
+    public function testConfigurationLoadThrowsExceptionUnlessPassword(): void
     {
+        $this->expectException(InvalidConfigurationException::class);
         $loader = new VMProApiExtension();
         $config = $this->getEmptyConfig();
 
@@ -61,7 +56,7 @@ class VMProApiExtensionTest extends AbstractTestCase
      * Assert whether the configuration keys and values are successfully
      * written as parameters.
      */
-    public function testParametersForFullConfig()
+    public function testParametersForFullConfig(): void
     {
         $container = new ContainerBuilder();
         $loader = new VMProApiExtension();
@@ -79,7 +74,7 @@ class VMProApiExtensionTest extends AbstractTestCase
      * Assert whether the configuration keys and values are successfully
      * written as parameters with the right default values.
      */
-    public function testDefaultParameters()
+    public function testDefaultParameters(): void
     {
         $container = new ContainerBuilder();
         $loader = new VMProApiExtension();

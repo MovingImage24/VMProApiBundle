@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MovingImage\Bundle\VMProApiBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Parser;
 
-abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * Get empty configuration set.
-     *
-     * @return array
      */
-    protected function getEmptyConfig()
+    protected function getEmptyConfig(): array
     {
         $yaml = <<<'EOF'
 vm_pro_api:
@@ -26,10 +27,8 @@ EOF;
 
     /**
      * Get empty configuration set.
-     *
-     * @return array
      */
-    protected function getFullConfig()
+    protected function getFullConfig(): array
     {
         $yaml = <<<'EOF'
 vm_pro_api:
